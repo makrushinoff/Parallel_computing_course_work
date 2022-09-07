@@ -20,9 +20,9 @@ public class ParallelIndexingThread implements Runnable {
 
     @Override
     public void run() {
-        for(int i = startIndex; i <= endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             final Path path = pathsToIndex.get(i);
-            try(final Stream<String> lines = Files.lines(path)) {
+            try (final Stream<String> lines = Files.lines(path)) {
                 lines.forEach(line -> {
                     String[] words = line.replaceAll("^[.,\\s]+", "").split("[.,\\s]+");
                     Arrays.stream(words).forEach(word -> index.add(word, path.toFile().getName()));

@@ -36,12 +36,14 @@ public class IndexingService {
             long currentTimeMicroseconds = getCurrentTimeMicros();
             List<Path> filePathsToIndex = new ArrayList<>();
             list.forEach(path -> collectPathsToIndex(path, filePathsToIndex));
+
             ExecutorService executorService = Executors.newFixedThreadPool(threadsNumber);
             getIndexThreads(threadsNumber, filePathsToIndex).forEach(executorService::submit);
             executorService.shutdown();
-            if(!executorService.awaitTermination(waitForTermination, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(waitForTermination, TimeUnit.SECONDS)) {
                 throw new IllegalStateException("Too little period for waiting in parallel state. Increase period in property file");
             }
+
             log.info("Time for indexing: {} mcs", (getCurrentTimeMicros() - currentTimeMicroseconds));
             log.info("Resulting map with size: {}", index.getSize());
         } catch (IOException | InterruptedException | IllegalStateException e) {
@@ -60,9 +62,9 @@ public class IndexingService {
     private List<Thread> getIndexThreads(int threadsNumber, List<Path> filePathsToIndex) {
         List<Thread> threads = new ArrayList<>();
         int filesPerThread = filePathsToIndex.size() / threadsNumber;
-        for(int i = 0; i < filePathsToIndex.size(); i += filesPerThread) {
+        for (int i = 0; i < filePathsToIndex.size(); i += filesPerThread) {
             Thread thread;
-            if(i + filesPerThread > filePathsToIndex.size()) {
+            if (i + filesPerThread > filePathsToIndex.size()) {
                 thread = new Thread(new ParallelIndexingThread(index, filePathsToIndex, i, (filePathsToIndex.size() - 1)));
             } else {
                 thread = new Thread(new ParallelIndexingThread(index, filePathsToIndex, i, (i + filesPerThread)));
