@@ -12,6 +12,6 @@ public class ConsoleAppRunner {
     public final IndexingService indexingService;
 
     public void runApp() {
-        indexingService.indexFiles();
+        indexingService.indexFiles(1);
     }
 }
