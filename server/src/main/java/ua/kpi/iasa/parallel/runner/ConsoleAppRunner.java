@@ -13,10 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class ConsoleAppRunner {
+public class ConsoleAppRunner implements Runner {
 
     public final IndexingController indexingController;
 
+    @Override
     public void runApp() {
         ConsoleUtil.printGreetings();
         while (true) {
