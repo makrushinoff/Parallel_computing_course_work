@@ -1,4 +1,4 @@
-package ua.kpi.iasa.parallel.config;
+package ua.kpi.iasa.parallel.server.config;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan("ua.kpi.iasa.parallel")
+@ComponentScan("ua.kpi.iasa.parallel.server")
 @PropertySource("classpath:application.properties")
 public class SpringConfig {
 

@@ -1,4 +1,4 @@
-package ua.kpi.iasa.parallel.wrapper.network;
+package ua.kpi.iasa.parallel.server.wrapper.network;
 
 import java.io.IOException;
 import java.net.ServerSocket;

@@ -1,4 +1,4 @@
-package ua.kpi.iasa.parallel.model;
+package ua.kpi.iasa.parallel.server.model;
 
 import java.util.ArrayList;
 import java.util.List;

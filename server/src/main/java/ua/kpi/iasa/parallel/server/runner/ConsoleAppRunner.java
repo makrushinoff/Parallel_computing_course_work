@@ -1,12 +1,12 @@
-package ua.kpi.iasa.parallel.runner;
+package ua.kpi.iasa.parallel.server.runner;
 
 import java.text.MessageFormat;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ua.kpi.iasa.parallel.controller.IndexingController;
-import ua.kpi.iasa.parallel.ui.ConsoleUtil;
+import ua.kpi.iasa.parallel.server.controller.IndexingController;
+import ua.kpi.iasa.parallel.server.ui.ConsoleUtil;
 
 import org.springframework.stereotype.Component;
 

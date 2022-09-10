@@ -1,4 +1,4 @@
-package ua.kpi.iasa.parallel.thread;
+package ua.kpi.iasa.parallel.server.thread;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ua.kpi.iasa.parallel.model.InvertedIndex;
+import ua.kpi.iasa.parallel.server.model.InvertedIndex;
 
 @RequiredArgsConstructor
 @Slf4j

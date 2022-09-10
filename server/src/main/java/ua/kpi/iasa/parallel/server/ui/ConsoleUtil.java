@@ -1,4 +1,4 @@
-package ua.kpi.iasa.parallel.ui;
+package ua.kpi.iasa.parallel.server.ui;
 
 import java.util.List;
 import java.util.Scanner;

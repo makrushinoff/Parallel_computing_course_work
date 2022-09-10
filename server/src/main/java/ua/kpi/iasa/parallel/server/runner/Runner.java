@@ -1,4 +1,4 @@
-package ua.kpi.iasa.parallel.runner;
+package ua.kpi.iasa.parallel.server.runner;
 
 public interface Runner {
     void runApp();

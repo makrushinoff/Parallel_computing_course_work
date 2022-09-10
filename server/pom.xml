@@ -62,7 +62,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>ua.kpi.iasa.parallel.ParallelServerMain</mainClass>
+                            <mainClass>ua.kpi.iasa.parallel.server.ParallelServerMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

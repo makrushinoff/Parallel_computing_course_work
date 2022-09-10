@@ -1,4 +1,4 @@
-package ua.kpi.iasa.parallel.service;
+package ua.kpi.iasa.parallel.server.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,8 +13,8 @@ import java.util.stream.Stream;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ua.kpi.iasa.parallel.model.InvertedIndex;
-import ua.kpi.iasa.parallel.thread.ParallelIndexingThread;
+import ua.kpi.iasa.parallel.server.model.InvertedIndex;
+import ua.kpi.iasa.parallel.server.thread.ParallelIndexingThread;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
