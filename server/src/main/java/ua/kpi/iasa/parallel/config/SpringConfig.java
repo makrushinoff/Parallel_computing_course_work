@@ -14,14 +14,15 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class SpringConfig {
 
-    private static final String MODULE_NAME = "server";
+    @Value("${module.name}")
+    private String moduleName;
 
     @Value("${filesToIndex.path}")
     private String[] pathsToFiles;
 
     @Bean
     public Path filesDirectoryPath() {
-        return Paths.get(MODULE_NAME, pathsToFiles);
+        return Paths.get(moduleName, pathsToFiles);
     }
 
 }
