@@ -1,5 +1,7 @@
 package ua.kpi.iasa.parallel.controller;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ua.kpi.iasa.parallel.service.IndexingService;
@@ -15,14 +17,23 @@ public class IndexingController {
 
     public long indexFiles(int threadNumber) throws IllegalAccessException {
         log.debug("Attempt to index files");
-        final boolean alreadyIndexed = indexingService.isAlreadyIndexed();
+        boolean alreadyIndexed = indexingService.isAlreadyIndexed();
         if(alreadyIndexed) {
             throw new IllegalAccessException("Inverted Index is full. Nothing to index");
         }
-        return indexingService.indexFiles(threadNumber);
+        long executionTime = indexingService.indexFiles(threadNumber);
+        log.info("Time for indexing: {} mcs", executionTime);
+        return executionTime;
     }
 
-    public void getTextsByWord(String keyword) throws NoSuchMethodException {
-        throw new NoSuchMethodException("Not implemented yet");
+    public List<String> getTextsByWord(String keyword) throws IllegalAccessException {
+        log.debug("Attempt to get texts from index be keyword: {}", keyword);
+        boolean alreadyIndexed = indexingService.isAlreadyIndexed();
+        if(!alreadyIndexed) {
+            throw new IllegalAccessException("Inverted Index is empty. Index files first!");
+        }
+        List<String> filesFromIndexByKeyword = indexingService.getFilesFromIndexByKeyword(keyword);
+        log.debug("Keyword: {}, files: {}", keyword, filesFromIndexByKeyword);
+        return filesFromIndexByKeyword;
     }
 }

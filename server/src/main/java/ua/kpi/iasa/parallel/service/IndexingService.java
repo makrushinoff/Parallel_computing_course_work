@@ -30,7 +30,7 @@ public class IndexingService {
     private final Path filesDirectoryPath;
     private final InvertedIndex index;
 
-    public long indexFiles(int threadsNumber) {
+    public synchronized long indexFiles(int threadsNumber) {
         try (final Stream<Path> list = Files.list(filesDirectoryPath)) {
             log.debug("Start to index files");
             long currentTimeMicroseconds = getCurrentTimeMicros();
@@ -44,16 +44,11 @@ public class IndexingService {
                 throw new IllegalStateException("Too little period for waiting in parallel state. Increase period in property file");
             }
             long executionTime = (getCurrentTimeMicros() - currentTimeMicroseconds);
-            log.info("Time for indexing: {} mcs", executionTime);
             log.debug("Resulting map with size: {}", index.getSize());
             return executionTime;
         } catch (IOException | InterruptedException | IllegalStateException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public boolean isAlreadyIndexed() {
-        return index.getSize() > 0;
     }
 
     private void collectPathsToIndex(Path filePath, List<Path> filePathsToIndex) {
@@ -82,6 +77,14 @@ public class IndexingService {
 
     private long getCurrentTimeMicros() {
         return System.nanoTime() / 1000;
+    }
+
+    public boolean isAlreadyIndexed() {
+        return index.getSize() > 0;
+    }
+
+    public List<String> getFilesFromIndexByKeyword(String keyword) {
+        return index.get(keyword);
     }
 
 }

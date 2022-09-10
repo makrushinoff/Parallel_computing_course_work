@@ -1,6 +1,7 @@
 package ua.kpi.iasa.parallel.runner;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,9 @@ public class ConsoleAppRunner {
 
     private void handleGetTextsOption() {
         try {
-            indexingController.getTextsByWord(ConsoleUtil.handleGetTextsByWord());
+            String keyword = ConsoleUtil.handleGetTextsByWord();
+            List<String> textsByWord = indexingController.getTextsByWord(keyword);
+            ConsoleUtil.showFileNamesForKeyword(keyword, textsByWord);
         } catch (Exception e) {
             log.warn("Error during indexing", e);
             ConsoleUtil.sendMessage(e.getMessage());

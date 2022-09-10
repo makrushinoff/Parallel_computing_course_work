@@ -1,5 +1,6 @@
 package ua.kpi.iasa.parallel.ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import lombok.AccessLevel;
@@ -36,10 +37,17 @@ public class ConsoleUtil {
     public static String handleGetTextsByWord() {
         System.out.println("You have picked getting texts by word");
         System.out.print("Enter keyword: ");
+        SCANNER.nextLine();
         return SCANNER.nextLine();
     }
 
     public static void sendMessage(String message) {
-        System.out.println(message);
+        System.out.println("\n" + message);
+    }
+
+    public static void showFileNamesForKeyword(String keyword, List<String> textsByWord) {
+        System.out.printf("\nFor keyword '%s' there are %d files\n", keyword, textsByWord.size());
+        textsByWord.forEach(text -> System.out.printf("'{%s}'\n", text));
+        System.out.println();
     }
 }
