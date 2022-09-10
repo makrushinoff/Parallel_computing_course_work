@@ -27,10 +27,10 @@ public class IndexingService {
     @Value("${executorService.waitForTermination.period.seconds}")
     private long waitForTermination;
 
-    public final Path filesDirectoryPath;
-    public final InvertedIndex index;
+    private final Path filesDirectoryPath;
+    private final InvertedIndex index;
 
-    public void indexFiles(int threadsNumber) {
+    public long indexFiles(int threadsNumber) {
         try (final Stream<Path> list = Files.list(filesDirectoryPath)) {
             log.debug("Start to index files");
             long currentTimeMicroseconds = getCurrentTimeMicros();
@@ -43,12 +43,17 @@ public class IndexingService {
             if (!executorService.awaitTermination(waitForTermination, TimeUnit.SECONDS)) {
                 throw new IllegalStateException("Too little period for waiting in parallel state. Increase period in property file");
             }
-
-            log.info("Time for indexing: {} mcs", (getCurrentTimeMicros() - currentTimeMicroseconds));
-            log.info("Resulting map with size: {}", index.getSize());
+            long executionTime = (getCurrentTimeMicros() - currentTimeMicroseconds);
+            log.info("Time for indexing: {} mcs", executionTime);
+            log.debug("Resulting map with size: {}", index.getSize());
+            return executionTime;
         } catch (IOException | InterruptedException | IllegalStateException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean isAlreadyIndexed() {
+        return index.getSize() > 0;
     }
 
     private void collectPathsToIndex(Path filePath, List<Path> filePathsToIndex) {
