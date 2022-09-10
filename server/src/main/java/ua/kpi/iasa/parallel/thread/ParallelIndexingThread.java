@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ua.kpi.iasa.parallel.model.InvertedIndex;
 
 @RequiredArgsConstructor
+@Slf4j
 public class ParallelIndexingThread implements Runnable {
 
     private final InvertedIndex index;
@@ -20,6 +22,7 @@ public class ParallelIndexingThread implements Runnable {
 
     @Override
     public void run() {
+        log.debug("Thread start: {}, end: {}", startIndex, endIndex);
         for (int i = startIndex; i <= endIndex; i++) {
             final Path path = pathsToIndex.get(i);
             try (final Stream<String> lines = Files.lines(path)) {
