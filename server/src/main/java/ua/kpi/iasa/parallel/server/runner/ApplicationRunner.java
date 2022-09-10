@@ -1,5 +1,5 @@
 package ua.kpi.iasa.parallel.server.runner;
 
-public interface Runner {
+public interface ApplicationRunner {
     void runApp();
 }

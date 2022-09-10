@@ -10,10 +10,10 @@ import ua.kpi.iasa.parallel.server.ui.ConsoleUtil;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("console")
 @RequiredArgsConstructor
 @Slf4j
-public class ConsoleAppRunner implements Runner {
+public class ConsoleApplicationRunner implements ApplicationRunner {
 
     public final IndexingController indexingController;
 
