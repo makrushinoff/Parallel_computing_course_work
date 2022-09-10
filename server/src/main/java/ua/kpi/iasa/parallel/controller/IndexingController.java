@@ -18,7 +18,7 @@ public class IndexingController {
     public long indexFiles(int threadNumber) throws IllegalAccessException {
         log.debug("Attempt to index files");
         boolean alreadyIndexed = indexingService.isAlreadyIndexed();
-        if(alreadyIndexed) {
+        if (alreadyIndexed) {
             throw new IllegalAccessException("Inverted Index is full. Nothing to index");
         }
         long executionTime = indexingService.indexFiles(threadNumber);
@@ -29,7 +29,7 @@ public class IndexingController {
     public List<String> getTextsByWord(String keyword) throws IllegalAccessException {
         log.debug("Attempt to get texts from index be keyword: {}", keyword);
         boolean alreadyIndexed = indexingService.isAlreadyIndexed();
-        if(!alreadyIndexed) {
+        if (!alreadyIndexed) {
             throw new IllegalAccessException("Inverted Index is empty. Index files first!");
         }
         List<String> filesFromIndexByKeyword = indexingService.getFilesFromIndexByKeyword(keyword);

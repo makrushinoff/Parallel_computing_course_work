@@ -27,7 +27,7 @@ public class ConsoleUtil {
         System.out.print("\nEnter menu point number: ");
         return SCANNER.nextInt();
     }
-    
+
     public static int handleIndexFiles() {
         System.out.println("You have picked indexing");
         System.out.print("Enter number of threads for indexing: ");
