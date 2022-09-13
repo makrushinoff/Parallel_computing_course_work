@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+@Data
+@Slf4j
 public class ServerSocketWrapper implements AutoCloseable {
 
     private final ServerSocket serverSocket;
@@ -23,6 +28,7 @@ public class ServerSocketWrapper implements AutoCloseable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        log.debug("Receive connection from {}:{}", socket.getInetAddress(), socket.getPort());
         return new SocketWrapper(socket);
     }
 

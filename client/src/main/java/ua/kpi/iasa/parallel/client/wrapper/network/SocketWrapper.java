@@ -5,6 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import lombok.Data;
+
+@Data
 @SuppressWarnings("unchecked")
 public class SocketWrapper implements AutoCloseable {
 
@@ -15,8 +18,9 @@ public class SocketWrapper implements AutoCloseable {
     public SocketWrapper(Socket socket) {
         this.socket = socket;
         try {
-            inputStream = new ObjectInputStream(socket.getInputStream());
+            socket.setSoTimeout(10000);
             outputStream = new ObjectOutputStream(socket.getOutputStream());
+            inputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -33,6 +37,7 @@ public class SocketWrapper implements AutoCloseable {
     public void sendData(Object data) {
         try {
             outputStream.writeObject(data);
+            outputStream.reset();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

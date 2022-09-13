@@ -2,6 +2,8 @@ package ua.kpi.iasa.parallel.server.config;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +25,11 @@ public class SpringConfig {
     @Bean
     public Path filesDirectoryPath() {
         return Paths.get(moduleName, pathsToFiles);
+    }
+
+    @Bean
+    public ExecutorService executorService() {
+        return Executors.newFixedThreadPool(100);
     }
 
 }
