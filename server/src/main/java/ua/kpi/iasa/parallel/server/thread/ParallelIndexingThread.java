@@ -1,5 +1,6 @@
 package ua.kpi.iasa.parallel.server.thread;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,11 +29,24 @@ public class ParallelIndexingThread implements Runnable {
             try (final Stream<String> lines = Files.lines(path)) {
                 lines.forEach(line -> {
                     String[] words = line.replaceAll("^[.,\\s]+", "").split("[.,\\s]+");
-                    Arrays.stream(words).forEach(word -> index.add(word, path.toFile().getName()));
+                    Arrays.stream(words).forEach(word -> index.add(word, getFileNameWithParents(path)));
                 });
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    private String getFileNameWithParents(Path path) {
+        File fileToIndex = path.toFile();
+        File parentDirectory = fileToIndex.getParentFile();
+        File parentToParent = parentDirectory.getParentFile();
+
+        return new StringBuilder().append(parentToParent.getName())
+                .append("/")
+                .append(parentDirectory.getName())
+                .append("/")
+                .append(fileToIndex.getName())
+                .toString();
     }
 }
