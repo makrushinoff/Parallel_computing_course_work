@@ -16,15 +16,12 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class SpringConfig {
 
-    @Value("${module.name}")
-    private String moduleName;
-
     @Value("${filesToIndex.path}")
-    private String[] pathsToFiles;
+    private String pathsToFiles;
 
     @Bean
     public Path filesDirectoryPath() {
-        return Paths.get(moduleName, pathsToFiles);
+        return Paths.get(pathsToFiles);
     }
 
     @Bean
