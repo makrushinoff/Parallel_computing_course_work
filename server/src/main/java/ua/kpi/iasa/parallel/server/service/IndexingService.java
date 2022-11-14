@@ -63,14 +63,16 @@ public class IndexingService {
         List<Thread> threads = new ArrayList<>();
         int filesPerThread = filePathsToIndex.size() / threadsNumber;
         log.debug("Files per thread: {}, files: {}", filesPerThread, filePathsToIndex.size());
-        for (int i = 0; i < filePathsToIndex.size(); i += filesPerThread) {
+        int filesIndex = 0;
+        for (int i = 0; i < threadsNumber; i++) {
             Thread thread;
-            if (i + filesPerThread > filePathsToIndex.size()) {
-                thread = new Thread(new ParallelIndexingThread(index, filePathsToIndex, i, (filePathsToIndex.size() - 1)));
+            if (filesIndex + filesPerThread > filePathsToIndex.size()) {
+                thread = new Thread(new ParallelIndexingThread(index, filePathsToIndex, filesIndex, (filePathsToIndex.size() - 1)));
             } else {
-                thread = new Thread(new ParallelIndexingThread(index, filePathsToIndex, i, (i + filesPerThread - 1)));
+                thread = new Thread(new ParallelIndexingThread(index, filePathsToIndex, filesIndex, (filesIndex + filesPerThread - 1)));
             }
             threads.add(thread);
+            filesIndex += filesPerThread;
         }
         return threads;
     }
